@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+{% block title %}صفحه اصلی {% endblock %}
+{% block content %}
+
+<div class="main-content">
+   <div class="container-fluid">
+   <div class="row">
+       <div class="col-md-2">
+               <div class="r-sidebar">
+                  <div class="ads-box">
+                     <span class="title">تبلیغات</span><br>
+                     {% for adv in advertises %}
+                        <a href="{{ adv.url }}">
+                           <figure>
+                              <img src="{% if adv.image %}{{ adv.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}">
+                              <h1>{{ adv.title }}</h1>
+                              <h4>{{ adv.body }}</h4>
+                           </figure>
+                        </a>
+                     {% endfor %}
+                  </div>
+               </div>
+       </div>
+      <div class="col-md-7">
+         <div class="content-wrapper">
+            <div class="most-views">
+               <span class="title">مطالب پربازدید</span>
+               <div class="col-md-8">
+                  <div class="main-post">
+                     <a href="{{ most_viewed_post.get_absolute_url }}">
+                        <figure>
+                           <img src="{% if most_viewed_post.image %} {{ most_viewed_post.image.url }} {% else %} {% static 'image/no_image.png' %} {% endif %}" alt="">
+                           <figcaption>
+                              <span><i class="fa fa-folder-o"></i> خبر روز</span>
+                              <h3>{{ most_viewed_post.title }}</h3>
+                              <span><i class="fa fa-eye" aria-hidden="true"></i>{{ most_viewed_post.current_hit_count }}</span>
+                              <span><i class="fa fa-comments-o"></i>{{ most_viewed_post.comments.count }}</span>
+                           </figcaption>
+                        </figure>
+                        <div class="p-div">
+                           <p>{{ most_viewed_post.body|truncatewords:50 }}</p>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+
+               <div class="col-md-4">
+                  <div class="oth-posts">
+                     {% for post in most_viewed_posts %}
+                        <div class="r-box">
+                           <a href="{% url 'blog:post_list_by_category' post.category.slug %}"><span class="cat-span">{{ post.category.title }}</span></a>
+                           <a href="{{ post.get_absolute_url }}">
+                             <h5>{{ post.title|truncatewords:7 }}</h5>
+                              <span><i class="fa fa-eye" aria-hidden="true"></i>{{ post.current_hit_count }}</span>
+                           </a>
+                           <span><i class="fa fa-clock-o"></i>{{ post.publish|time:'H:i'}}</span>
+                        </div>
+
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+
+            <div class="special-cat-box">
+               <span class="title">فیلم و ویدئو</span>
+               <div class="col-md-6">
+                  <div class="main-post">
+                     <a href="{{ most_viewed_video.get_absolute_url }}">
+                        <figure>
+                           <img src="{% if most_viewed_video.image %} {{ most_viewed_video.image.url }} {% else %} {% static 'image/no_image.png' %} {% endif %}" alt="">
+                           <figcaption>
+                              <span><i class="fa fa-folder-o"></i>ویدئو روز</span>
+                              <h3>{{ most_viewed_video.title|truncatewords:8 }}</h3>
+                              <span><i class="fa fa-eye" aria-hidden="true"></i>{{ most_viewed_video.current_hit_count }}</span>
+                              <span><i class="fa fa-comments-o"></i>{{ most_viewed_video.comments.count }}</span>
+                              <span><i class="fa fa-clock-o"></i>{{ most_viewed_video.publish|time:'H:i'}}</span>
+                           </figcaption>
+                        </figure>
+                     </a>
+                  </div>
+               </div>
+
+               <div class="col-md-6">
+                  <div class="left-content">
+                     {% for post in videos %}
+                        <div class="col-md-6">
+                              <a href="{{ post.get_absolute_url }}">
+                                 <div class="content">
+                                    <figure>
+                                       <img src="{% if post.image %}{{ post.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}"
+                                       <figcaption><i class="fa fa-external-link"></i></figcaption>
+                                    </figure>
+<!--                                    <span>{{ post.category }}</span>-->
+                                    <h5>{{ post.title|truncatewords:7 }}</h5>
+                                    <div style="display:inline"><i class="fa fa-clock-o"></i>{{ post.publish|time:'H:i'}}</div>
+                                 </div>
+                              </a>
+                        </div>
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-md-3">
+         <div class="l-sidebar">
+            <div class="cat-sidebar">
+               <span class="title">دسته بندی مطالب</span>
+               <div class="text-left"><i class="fa fa-folder-o"></i></div>
+               <ul>
+                  {% for category in categories %}
+                     <li><a href="{% url 'blog:post_list_by_category' category.slug %}">{{ category.title }}</a><span>{{ category.posts.count }}</span></li>
+                  {% endfor %}
+               </ul>
+            </div>
+         </div>
+      </div>
+
+      </div>
+   </div>
+   <div class="clear-fix"></div>
+   <div class="latest-posts">
+   <div class="container-fluid">
+      <div class="blog-title-span">
+         <span class="title">آخرین مطالب</span>
+      </div>
+      {% for post in posts %}
+         <div class="col-md-3">
+            <div class="post-box" style="min-height: 390px">
+               <a href="{{ post.get_absolute_url }}">
+                  <figure>
+                     <img src="{% if post.image %}{{ post.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}">
+                     <figcaption class="meta-fig">
+                        <span><i class="fa fa-eye" aria-hidden="true"></i>{{ post.current_hit_count }}</span>
+<!--                              <span class='view' ><i class="fa fa-eye" aria-hidden="true"></i>{% get_hit_count for post %}</span>-->
+                        <span><i class="fa fa-comment-o"></i> 12</span>
+                        <span><i class="fa fa-clock-o"></i> {{ post.publish|time:'H:i'}} </span>&nbsp;
+                     </figcaption>
+                     <figcaption class="view">
+                           <a href="{% url 'blog:post_list_by_category' post.category.slug%}"><span>{{ post.category }}</span></a>
+                     </figcaption>
+                  </figure>
+                  <div class="text-p">
+                     <h4>{{ post.title|truncatewords:15 }}</h4>
+                     <br>
+                     <p>{{ post.body }}</p>
+                     <div class="text-rigt">
+                        <a href="{{ post.get_absolute_url }}">ادامه...</a>
+                     </div>
+               </div>
+               </a>
+            </div>
+         </div>
+      {% endfor %}
+      </div>
+   </div>
+</div>
+
+
+{% endblock %}

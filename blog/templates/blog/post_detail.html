@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+ {% if messages %}
+    {% for message in messages %}
+      <div class="text-center alert alert-{{ message.tags }}">
+        {{ message|safe }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+    <div class="single_post">
+         <div class="container-fluid">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+               <div class="posts_meta text-center">
+                  <span><i class="fa fa-eye" aria-hidden="true"></i>{{ post.current_hit_count }}</span>
+                  <span><i class="fa fa-comment-o"></i>{{ post.comments.count }} نظر</span>
+                  <span><i class="fa fa-archive"></i>{{ post.category }}</span>
+                  <span><i class="fa fa-calendar"></i>{{ post.publish }}</span>
+               </div>
+               <div class="post_content">
+                  <h4>| {{ post.title }}</h4>
+                  {% if post.video %}
+
+				     <div style="margin: 10px auto;">
+					    <video autoplay="autoplay" controls="controls" preload="preload"
+                           width="100%" height="auto">
+						<source src="{{ post.video.url }}" type="video/mp4"></source>
+					</video>
+
+				  </div>
+
+                  {% else %}
+
+                     <img src="{% if post.image %}{{ post.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}"
+                     height="85%" width="95%">
+                  {% endif %}
+
+                  <p>{{ post.body }}</p>
+                  <img src="img/unnamed.jpg" alt="">
+
+               </div>
+
+               <div class="comments">
+
+                     <h5 class="comments-title">نظرات کاربران</h5>
+                     <div class="comments-box">
+                        {% for comment  in post.comments.all %}
+                           <div class="dialogbox">
+                              <div class="body">
+                                 <span class="tip tip-right"></span>
+                                 <div class="message">
+                                    <p>{{ comment.name }}:</p>
+                                    <span>{{ comment.body|linebreaks }}</span>
+                                 </div>
+                              </div>
+                           </div>
+                        {% endfor %}
+                     </div>
+
+
+
+
+                  <form class="form-add-comment" method="post">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                     <div class="container-contact100-form-btn">
+					<button class="contact100-form-btn" name="submit">
+						ارسال پیام
+					</button>
+				</div>
+                  </form>
+               <br>
+         </div>
+   </div>
+
+{% endblock %}

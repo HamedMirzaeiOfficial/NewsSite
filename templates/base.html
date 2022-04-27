@@ -1,0 +1,146 @@
+{% load static %}
+<html lang="fa">
+   <head>
+      <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+      <link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
+      <link rel="stylesheet" href="{% static 'style.css' %}?{% now 'U' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-rtl.css' %}">
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?{% now 'U' %}">
+
+       <!-- Our project just needs Font Awesome Free's Solid + Brand files -->
+      <link href="{% static 'fontawesome_free/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+      <link href="{% static 'fontawesome_free/css/brands.css' %}" rel="stylesheet" type="text/css">
+      <link href="{% static 'fontawesome_free/css/solid.css' %}" rel="stylesheet" type="text/css">
+      <title>{% block title %}{% endblock %}</title>
+   </head>
+   <body>
+      <div class="top-bar">
+         <div class="container-fluid">
+            <div class="col-md-6">
+               <div class="topnav">
+                  <div class="search-container">
+                     <form action="{% url 'blog:search_results' %}" method="get">
+                        <input name='q' type="text" placeholder="جستجو کنید...">
+                        <button type="submit"><i class="fa fa-search" style="font-size: 26px"></i></button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-md-6">
+               <div class="top-cat-box">
+                  <div class="col-md-12">
+                     <div class="menu">
+                        <ul>
+                           <li><a href="{% url 'contact' %}">تماس با ما</a></li>
+                           <li><a href="#">درباره ما</a></li>
+<!--                           <li><a href="#">مقالات</a></li>-->
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="main-header">
+         <div class="container-fluid">
+            <div class="col-md-10">
+               <div class="main-menu">
+                  <ul>
+                     <li><a href="{% url 'index' %}">صفحه اصلی</a></li>
+<!--                     <li><a href="#">اقتصادی</a></li>-->
+                     <li><a href="{% url 'blog:post_list_by_category' 'sport' %}">ورزشی</a></li>
+                     <li><a href="{% url 'blog:post_list_by_category' 'cinema' %}">سینما</a></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="col-md-2">
+               <div class="social-box">
+                  <ul>
+                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      {% block content %}
+
+      {% endblock %}
+
+           <div class="clear-fix"></div>
+      <div class="footer">
+         <div class="container-fluid">
+            <div class="col-md-5">
+               <div class="footer-box">
+                  <span class="title">Phoenix-Group</span>
+                  <p>
+                     سایت خبر ورزشی همراه شما با بروز ترین اخبار جهان در حوزه های مختلف.
+                        <br>
+                     منتظر نظرات و کامنت های شما هستیم.
+                        <br>
+                     با تشکر.
+                  </p>
+               </div>
+            </div>
+            <div class="col-md-2">
+               <div class="footer-box">
+                  <span class="title">دسترسی سریع</span>
+                  <ul>
+                     <li><a href="#">موضوعی</a></li>
+                     <li><a href="#">قوانین</a></li>
+                     <li><a href="#">نشریات</a></li>
+                     <li><a href="#">موضوعی</a></li>
+                     <li><a href="#">خبرنامه</a></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="col-md-2">
+               <div class="footer-box">
+                  <span class="title">موضوعی</span>
+                  <ul>
+                     <li><a href="#">ورزشی</a></li>
+                     <li><a href="#">سینما</a></li>
+                     <li><a href="#">موسیقی</a></li>
+                     <li><a href="#">سیاسی</a></li>
+                     <li><a href="#">مذهبی</a></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <div class="footer-box contact-box">
+                  <span class="title">تماس با ما</span>
+                  <p><i class="fa fa-phone"></i> 09334519059</p>
+                  <p><i class="fa fa-phone"></i> 09334519059</p>
+                  <p><i class="fa fa-envelope-o"></i> HamedMirzaei2001Official@gmail.com</p>
+                  <p><i class="fa fa-map-marker"></i> کردستان </p>
+               </div>
+            </div>
+            <div class="clear-fix"></div>
+         </div>
+      </div>
+      <div class="end-wrapper">
+         <div class="container-fluid">
+            <div class="col-md-6">
+               <div class="copy-r">
+                  <p>&copy; تمامی حقوق متعلق به Phoenix می باشد</p>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="creator text-left">
+                  <p>طراحی سایت ، Phoenix</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="bg"></div>
+      <script src="{% static 'js/jquery.js' %}"></script>
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+      <script src="{% static 'js/index.js' %}"></script>
+   </body>
+</html>

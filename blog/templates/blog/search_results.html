@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+{% block title %}جستجو برای "{{ search_word }}"{% endblock %}
+
+{% block content %}
+<div class="latest-posts">
+   <div class="container-fluid">
+      <div class="blog-title-span">
+         <span class="title">جستجو برای "{{ search_word }}"</span>
+      </div>
+
+      {% for post in object_list %}
+         <div class="col-md-3">
+            <div class="post-box" style="min-height: 390px">
+               <a href="{{ post.get_absolute_url }}">
+                  <figure>
+                     <img src="{% if post.image %}{{ post.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}">
+                     <figcaption class="meta-fig">
+                        <span><i class="fa fa-eye" aria-hidden="true"></i>{{ post.current_hit_count }}</span>
+<!--                              <span class='view' ><i class="fa fa-eye" aria-hidden="true"></i>{% get_hit_count for post %}</span>-->
+                        <span><i class="fa fa-comment-o"></i> 12</span>
+                        <span><i class="fa fa-clock-o"></i> {{ post.publish|time:'H:i'}} </span>&nbsp;
+                     </figcaption>
+                     <figcaption class="view">
+                           <span>{{ post.category }}</span>
+                     </figcaption>
+                  </figure>
+                  <div class="text-p">
+                     <h4>{{ post.title|truncatewords:15 }}</h4>
+                     <br>
+                     <p>{{ post.body }}</p>
+                     <div class="text-rigt">
+                        <a href="{{ post.get_absolute_url }}">ادامه...</a>
+                     </div>
+                  </div>
+               </a>
+            </div>
+         </div>
+      {% endfor %}
+   </div>
+</div>
+{% endblock %}
