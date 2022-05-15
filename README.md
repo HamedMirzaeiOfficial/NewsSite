@@ -1,5 +1,5 @@
 # NewsSite
-a website for share news with people.
+a website for share news with people. This site was created with the aim of sharing news in different categories. It has features such as displaying news by category, search by content, comment system and communication with the admin.
 
 
 ## Setup
