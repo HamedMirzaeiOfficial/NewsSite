@@ -92,7 +92,6 @@
                                        <img src="{% if post.image %}{{ post.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}"
                                        <figcaption><i class="fa fa-external-link"></i></figcaption>
                                     </figure>
-<!--                                    <span>{{ post.category }}</span>-->
                                     <h5>{{ post.title|truncatewords:7 }}</h5>
                                     <div style="display:inline"><i class="fa fa-clock-o"></i>{{ post.publish|time:'H:i'}}</div>
                                  </div>
@@ -135,7 +134,6 @@
                      <img src="{% if post.image %}{{ post.image.url }} {% else %} {% static 'img/no_image.png' %} {% endif %}">
                      <figcaption class="meta-fig">
                         <span><i class="fa fa-eye" aria-hidden="true"></i>{{ post.current_hit_count }}</span>
-<!--                              <span class='view' ><i class="fa fa-eye" aria-hidden="true"></i>{% get_hit_count for post %}</span>-->
                         <span><i class="fa fa-comment-o"></i> 12</span>
                         <span><i class="fa fa-clock-o"></i> {{ post.publish|time:'H:i'}} </span>&nbsp;
                      </figcaption>
