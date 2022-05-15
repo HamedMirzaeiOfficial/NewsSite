@@ -8,7 +8,6 @@ The first thing to do is to clone the repository:
 
 ```sh
 $ git clone https://github.com/HamedMirzaeiOfficial/NewsSite.git
-$ cd NewsSite
 ```
 
 Create a virtual environment to install dependencies in and activate it:
